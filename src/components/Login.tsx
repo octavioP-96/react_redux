@@ -5,6 +5,7 @@ import { authReqModel } from "../models/authReqModel";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { setUsuario } from "../redux/features/userSlice";
+import { LoginForm } from "./LoginForm";
 
 export const Login = () => {
   const [username, setUsername] = useState("");
@@ -42,7 +43,7 @@ export const Login = () => {
 
   return (
     <div>
-      <h2>Iniciar Sesión</h2>
+      {/* <h2>Iniciar Sesión</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -63,7 +64,8 @@ export const Login = () => {
       {
         error && 
         <p style={{color:"red"}}>{error}</p>
-      }
+      } */}
+      <LoginForm />
     </div>
   );
 };
