@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { ProtectedRoute } from './routes/ProtectedRoute';
 import { lazy, Suspense } from 'react';
 import { Login } from './components/Login';
@@ -24,6 +24,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path='*' element={<Navigate to='/' replace />} />
         </Routes>
       </BrowserRouter>
     </Provider>

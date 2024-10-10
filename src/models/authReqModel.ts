@@ -1,0 +1,1 @@
+export interface authReqModel {username:string, passw:string}

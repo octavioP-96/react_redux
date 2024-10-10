@@ -1,23 +1,42 @@
-import { FormEvent, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { login } from '../redux/features/userSlice';
+import { FormEvent, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "../redux/features/authSlice";
+import { authReqModel } from "../models/authReqModel";
+import { useAppDispatch, useAppSelector } from "../hooks";
+import { unwrapResult } from "@reduxjs/toolkit";
+import { setUsuario } from "../redux/features/userSlice";
 
 export const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const { loading, error } = useAppSelector((state) => state.autenticacion);
+  useEffect(() => {
+    console.log(error);
+    
+  }, [error])
+  
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    // Simula autenticación
-    if (username === 'admin' && password === 'admin') {
-    //   localStorage.setItem('auth', 'true');
-        dispatch(login(username));
-      navigate('/panel'); // Redirigir al panel
-    } else {
-      alert('Usuario o contraseña incorrectos');
+    try{
+        // Simula autenticación
+        const respAction = await dispatch(
+          loginUser({
+            username,
+            passw: password,
+          })
+        )
+        const user = unwrapResult(respAction);
+        dispatch(setUsuario({
+            nombre:user.userName,
+            correo:user.email,
+            autorizado: true
+        }))
+        navigate("/panel");
+    }catch(err){
+        console.error(err);
     }
   };
 
@@ -37,8 +56,14 @@ export const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Ingresar</button>
+        <button disabled={loading} type="submit">
+          Ingresar
+        </button>
       </form>
+      {
+        error && 
+        <p style={{color:"red"}}>{error}</p>
+      }
     </div>
   );
 };
