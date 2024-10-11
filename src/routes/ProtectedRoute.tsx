@@ -10,9 +10,9 @@ export const ProtectedRoute = ({ children }:ProtectedRouteProps)  => {
     const user = useSelector((state:RootState) => state.usuario)
     const isAuthenticated = user.autorizado;
 
-    if (!isAuthenticated) {
+    /* if (!isAuthenticated) {
       return <Navigate to="/" />;
-    }
+    } */
   
     return (
         <>{children}</>

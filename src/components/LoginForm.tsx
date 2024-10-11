@@ -1,11 +1,15 @@
 import { Box, Typography, TextField, Button, Link, Divider } from '@mui/material';
 import Grid from '@mui/material/Grid2';
+import { FormEventHandler } from 'react';
 
 const styleBox = { backgroundColor: '#22897fc2', height: 200, borderRadius: 2, display: 'flex', alignItems: 'center', justifyContent: 'center' }
 const styleTypo = { padding: 2, fontFamily: '"Lora", sans-serif' }
 const sizeGrid = { xs: 12 , md: 6 }
 const styleGrid = {boxShadow:'2px 4px 9px -5px'}
-export const LoginForm = () => {
+interface propsLogin {
+    handleSubmit:FormEventHandler
+}
+export const LoginForm = (props:propsLogin) => {
     return (
         <Grid container sx={{ height: '100vh' }}>
 
@@ -54,40 +58,43 @@ export const LoginForm = () => {
             {/* Columna derecha: Formulario de login */}
             <Grid size={{ xs: 12, md: 5 }} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Box sx={{ width: '80%', maxWidth: 400, padding: 3 }}>
-                    <Typography variant="h5" sx={{ mb: 2 }}>
-                        <strong>Bienvenido</strong> de nuevo!
-                    </Typography>
-                    <Typography variant="body2" sx={{ mb: 4 }}>
-                        Ingresa a tu plataforma para concer las nuevas actualizaciones del trabajo
-                    </Typography>
+                    <form onSubmit={props.handleSubmit}>
+                        <Typography variant="h5" sx={{ mb: 2 }}>
+                            <strong>Bienvenido</strong> de nuevo!
+                        </Typography>
+                        <Typography variant="body2" sx={{ mb: 4 }}>
+                            Ingresa a tu plataforma para concer las nuevas actualizaciones del trabajo
+                        </Typography>
 
-                    <TextField
-                        label="Email Address"
-                        fullWidth
-                        margin="normal"
-                        variant="outlined"
-                    />
-                    <TextField
-                        label="Password"
-                        fullWidth
-                        margin="normal"
-                        variant="outlined"
-                        type="password"
-                    />
-                    <Link href="#" variant="body2" sx={{ display: 'block', textAlign: 'right', mt: 1 }}>
-                        Forgot the password?
-                    </Link>
+                        <TextField
+                            label="Email Address"
+                            fullWidth
+                            margin="normal"
+                            variant="outlined"
+                        />
+                        <TextField
+                            label="Password"
+                            fullWidth
+                            margin="normal"
+                            variant="outlined"
+                            type="password"
+                        />
+                        {/* <Link href="#" variant="body2" sx={{ display: 'block', textAlign: 'right', mt: 1 }}>
+                            Forgot the password?
+                        </Link> */}
 
-                    <Button
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        sx={{ mt: 3, mb: 2 }}
-                    >
-                        Login
-                    </Button>
+                        <Button
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            sx={{ mt: 3, mb: 2 }}
+                            type='submit'
+                        >
+                            Login
+                        </Button>
+                        <Divider>Bienvenido</Divider>
+                    </form>
 
-                    <Divider>Bienvenido</Divider>
                 </Box>
             </Grid>
         </Grid>

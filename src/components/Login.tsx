@@ -65,7 +65,7 @@ export const Login = () => {
         error && 
         <p style={{color:"red"}}>{error}</p>
       } */}
-      <LoginForm />
+      <LoginForm handleSubmit={handleSubmit} />
     </div>
   );
 };
